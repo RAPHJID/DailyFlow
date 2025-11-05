@@ -2,6 +2,8 @@ using JournalApi.Data;
 using JournalApi.Services;
 using JournalApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,12 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Journal API", Version = "v1" });
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
